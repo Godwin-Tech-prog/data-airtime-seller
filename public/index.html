@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FlashSell | Data & Airtime</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">F</div>
+          <div>
+            <div class="brand-name">FlashSell</div>
+            <div class="brand-sub">Business Platform</div>
+          </div>
+        </div>
+
+        <nav class="nav-menu">
+          <a href="#shop">Shop</a>
+          <a href="#dashboard">Dashboard</a>
+          <a href="#orders">Orders</a>
+        </nav>
+
+        <div class="user-actions">
+          <button class="secondary-btn hidden" id="logoutBtn">Logout</button>
+          <button class="primary-btn" id="showAuthBtn">Login / Signup</button>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="content-panel" id="shop">
+          <div class="hero-card">
+            <div>
+              <span class="eyebrow">Fast reseller platform</span>
+              <h1>Buy data bundles and airtime with ease.</h1>
+              <p>Power your sales with instant transactions, secure checkout, and a smart dashboard.</p>
+            </div>
+            <div class="hero-metrics">
+              <div>
+                <strong>₦1.2M</strong>
+                <span>Monthly sales</span>
+              </div>
+              <div>
+                <strong>12k+</strong>
+                <span>Transactions</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-row">
+            <div class="chip-group" id="networkFilters">
+              <button class="chip active" data-network="All">All</button>
+              <button class="chip" data-network="MTN">MTN</button>
+              <button class="chip" data-network="Airtel">Airtel</button>
+              <button class="chip" data-network="Glo">Glo</button>
+            </div>
+            <div class="chip-group">
+              <button class="chip active" data-category="all">All</button>
+              <button class="chip" data-category="data">Data</button>
+              <button class="chip" data-category="airtime">Airtime</button>
+            </div>
+          </div>
+
+          <div id="productGrid" class="product-grid"></div>
+        </section>
+
+        <aside class="cart-panel">
+          <div class="panel-head">
+            <h3>Cart</h3>
+            <span id="cartCount">0 items</span>
+          </div>
+
+          <div id="cartItems" class="cart-items"></div>
+
+          <div class="subtotal-box">
+            <div><span>Subtotal</span><strong id="subtotalValue">₦0.00</strong></div>
+            <div><span>Service fee</span><strong id="feeValue">₦0.00</strong></div>
+            <div class="grand-total"><span>Total</span><strong id="totalValue">₦0.00</strong></div>
+          </div>
+
+          <button class="primary-btn full" id="checkoutBtn">Proceed to Checkout</button>
+        </aside>
+      </main>
+
+      <section class="dashboard-section hidden" id="dashboard">
+        <div class="section-header">
+          <h2>Admin Dashboard</h2>
+          <button class="secondary-btn" id="refreshStatsBtn">Refresh</button>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card accent">
+            <span>Total Revenue</span>
+            <strong id="revenueStat">₦0.00</strong>
+          </div>
+          <div class="stat-card">
+            <span>Orders</span>
+            <strong id="ordersStat">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Users</span>
+            <strong id="usersStat">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Pending</span>
+            <strong id="pendingStat">0</strong>
+          </div>
+        </div>
+
+        <div class="analytics-grid">
+          <div class="panel-box">
+            <h3>Top products</h3>
+            <div id="topProductsList" class="top-products"></div>
+          </div>
+
+          <div class="panel-box">
+            <h3>Recent activity</h3>
+            <div id="recentOrdersList" class="recent-activity"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="orders-panel hidden" id="orders">
+        <div class="section-header">
+          <h2>My Orders</h2>
+        </div>
+        <div id="userOrdersList" class="order-list"></div>
+      </section>
+    </div>
+
+    <div class="modal hidden" id="authModal">
+      <div class="modal-card">
+        <button class="modal-close" id="closeModalBtn">×</button>
+        <div class="auth-switch">
+          <button class="auth-tab active" data-mode="login">Login</button>
+          <button class="auth-tab" data-mode="signup">Signup</button>
+        </div>
+
+        <form id="authForm">
+          <div class="input-group hidden" id="signupNameGroup">
+            <label>Full name</label>
+            <input type="text" id="signupName" placeholder="John Doe" />
+          </div>
+
+          <div class="input-group">
+            <label>Email address</label>
+            <input type="email" id="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="••••••••" required />
+          </div>
+
+          <button class="primary-btn full" type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal hidden" id="checkoutModal">
+      <div class="modal-card wide">
+        <button class="modal-close" id="closeCheckoutBtn">×</button>
+        <div class="section-header compact">
+          <h2>Checkout</h2>
+        </div>
+
+        <form id="checkoutForm">
+          <div class="checkout-grid">
+            <div class="input-group">
+              <label>Customer name</label>
+              <input type="text" id="checkoutName" placeholder="Your name" required />
+            </div>
+            <div class="input-group">
+              <label>Contact</label>
+              <input type="text" id="checkoutContact" placeholder="0803 123 4567" required />
+            </div>
+          </div>
+
+          <div class="payment-methods">
+            <label class="pay-option active"><input type="radio" name="payMethod" value="wallet" checked /> <span>Wallet</span></label>
+            <label class="pay-option"><input type="radio" name="payMethod" value="bank" /> <span>Bank</span></label>
+            <label class="pay-option"><input type="radio" name="payMethod" value="card" /> <span>Card</span></label>
+          </div>
+
+          <div class="summary-box">
+            <div><span>Amount due</span><strong id="checkoutTotal">₦0.00</strong></div>
+          </div>
+
+          <button class="primary-btn full" type="submit">Complete Purchase</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
